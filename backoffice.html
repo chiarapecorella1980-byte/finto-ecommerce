@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Backoffice</title>
+</head>
+<body>
+
+  <h1>Backoffice</h1>
+
+  <button id="create">Crea prodotto</button>
+
+  <script>
+    const API_URL = "https://striveschool-api.herokuapp.com/api/product/";
+    const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTgwZmE4OWQxZTk0YzAwMTVlZGRmMWQiLCJpYXQiOjE3NzAwNjIzMDAsImV4cCI6MTc3MTI3MTkwMH0.X-3fRkh0IDVaN72Ymu_e0l7hLBK98ciBztXStOQjxMw";
+
+    document.getElementById("create").addEventListener("click", () => {
+      const newProduct = {
+        name: "Prodotto di prova",
+        description: "Creato per consegna progetto",
+        brand: "Epicode",
+        imageUrl: "https://placehold.co/300x300",
+        price: 99
+      };
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + TOKEN
+        },
+        body: JSON.stringify(newProduct)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("CREATO:", data);
+          alert("Prodotto creato!");
+        })
+        .catch(err => console.log(err));
+    });
+  </script>
+
+</body>
+</html>
